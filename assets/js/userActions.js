@@ -1,0 +1,23 @@
+function subscribe($userTo, $userFrom, button) {
+
+    if($userTo == $userFrom) {
+        alert("You cant subscribe to your own video");
+        return;
+    }
+    
+    $.post("ajax/subscribe.php", { "userTo": $userTo, "userFrom": $userFrom })
+     .done(function(count) {
+         
+        if(count != null) {
+            $(button).toggleClass("subscribe unsubscribe");
+
+            var buttonText = $(button).hasClass("subscribe") ? "SUBSCRIBE" : "SUBSCRIBED";
+            $(button).text(buttonText + " " + count);
+        }
+        else {
+            alert("Something went wrong");
+        }
+
+     });
+
+}
